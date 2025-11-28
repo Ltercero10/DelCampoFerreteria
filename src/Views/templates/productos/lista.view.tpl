@@ -39,13 +39,12 @@
         <div class="producto-card">
 
             {{if imagen}}
-    <img src="data:image/jpeg;base64,{{imagen}}" 
-         alt="{{nombre}}" class="img-fluid">
-{{endif imagen}}
+            <img src="data:image/jpeg;base64,{{imagen}}" alt="{{nombre}}" class="img-fluid">
+            {{endif imagen}}
 
-{{ifnot imagen}}
-    <div class="producto-img-placeholder">Sin imagen</div>
-{{endifnot imagen}}
+            {{ifnot imagen}}
+            <div class="producto-img-placeholder">Sin imagen</div>
+            {{endifnot imagen}}
 
 
             <h2>{{nombre}}</h2>

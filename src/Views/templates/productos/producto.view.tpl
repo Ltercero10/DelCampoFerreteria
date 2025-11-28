@@ -1,11 +1,39 @@
 <div class="container mt-4">
+
+    
+    <style>
+        .img-producto {
+            width: 500px;
+            height: 500px;
+            object-fit: cover; 
+            border-radius: 10px;
+            
+            background: #f9f9f9;
+        }
+
+        .producto-img-placeholder {
+            width: 500px;
+            height: 500px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+            color: #666;
+            font-size: 18px;
+        }
+    </style>
+
     <h1>{{nombre}}</h1>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 text-center">
 
             {{if imagen}}
-            <img src="data:image/jpeg;base64,{{imagen}}" alt="{{nombre}}" class="img-fluid">
+            <img src="data:image/jpeg;base64,{{imagen}}" 
+                 alt="{{nombre}}" 
+                 class="img-producto">
             {{endif imagen}}
 
             {{ifnot imagen}}
@@ -13,7 +41,6 @@
             {{endifnot imagen}}
 
         </div>
-
 
         <div class="col-md-6">
             <h4>Categoría: {{categoria_nombre}}</h4>
@@ -31,6 +58,7 @@
             <br><br>
             <a href="index.php?page=Productos_Productos" class="btn btn-secondary">Volver al catálogo</a>
         </div>
+
         <div class="mt-4">
             <h5>Subir nueva imagen</h5>
             <form action="index.php?page=Productos_Producto&id={{id}}" method="POST" enctype="multipart/form-data">
