@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP Version 7.2
  *
@@ -9,6 +10,7 @@
  * @version  CVS:1.0.0
  * @link     http://
  */
+
 namespace Controllers;
 
 /**
@@ -27,10 +29,9 @@ class Index extends PublicController
      *
      * @return void
      */
-    public function run() :void
+    public function run(): void
     {
         $viewData = array();
         \Views\Renderer::render("index", $viewData);
     }
 }
-?>

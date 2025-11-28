@@ -5,14 +5,15 @@
         <div class="col-md-6">
 
             {{if imagen}}
-            <img src="{{imagen}}" alt="{{nombre}}" class="img-fluid">
+            <img src="data:image/jpeg;base64,{{imagen}}" alt="{{nombre}}" class="img-fluid">
             {{endif imagen}}
 
             {{ifnot imagen}}
             <div class="producto-img-placeholder">Sin imagen</div>
             {{endifnot imagen}}
+
         </div>
-        
+
 
         <div class="col-md-6">
             <h4>Categoría: {{categoria_nombre}}</h4>
@@ -30,5 +31,13 @@
             <br><br>
             <a href="index.php?page=Productos_Productos" class="btn btn-secondary">Volver al catálogo</a>
         </div>
+        <div class="mt-4">
+            <h5>Subir nueva imagen</h5>
+            <form action="index.php?page=Productos_Producto&id={{id}}" method="POST" enctype="multipart/form-data">
+                <input type="file" name="imagen" accept="image/*" required />
+                <button type="submit" class="btn btn-primary btn-sm">Subir imagen</button>
+            </form>
+        </div>
+
     </div>
 </div>

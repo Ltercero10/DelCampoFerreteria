@@ -78,4 +78,39 @@ class Productos extends Table
 
         return self::obtenerUnRegistro($sqlstr, ["id" => $id]);
     }
+    public static function actualizarProductoImagen(int $id, string $imagenPath)
+    {
+        $sql = "UPDATE productos SET imagen = :imagen WHERE id = :id";
+        // Se ejecuta como si fuera un SELECT, aunque es un UPDATE
+        return self::obtenerUnRegistro($sql, ["imagen" => $imagenPath, "id" => $id]);
+    }
+
+    public static function updateProducto($producto)
+    {
+        $sql = "UPDATE productos 
+            SET nombre = :nombre,
+                descripcion = :descripcion,
+                precio = :precio,
+                stock = :stock,
+                categoria_id = :categoria_id";
+
+        // Solo agrega la imagen si viene en el array
+        if (isset($producto["imagen"])) {
+            $sql .= ", imagen = :imagen";
+        }
+
+        $sql .= " WHERE id = :id";
+
+        return self::executeNonQuery($sql, $producto);
+    }
+
+    public static function insertProducto($producto)
+    {
+        $sql = "INSERT INTO productos 
+            (nombre, descripcion, precio, stock, categoria_id, imagen)
+            VALUES 
+            (:nombre, :descripcion, :precio, :stock, :categoria_id, :imagen)";
+
+        return self::executeNonQuery($sql, $producto);
+    }
 }

@@ -24,10 +24,20 @@ CREATE TABLE productos (
 CREATE TABLE productos_imagenes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     producto_id INT NOT NULL,
-    url_imagen VARCHAR(255) NOT NULL,
+    url_imagen VARCHAR(500) NOT NULL,
     orden INT DEFAULT 1,
     estado CHAR(3) DEFAULT 'ACT',
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (producto_id) REFERENCES productos(id)
 );
+
+
+UPDATE productos 
+SET imagen = '/uploads/productos/plano' 
+WHERE id = 2;
+
+ALTER TABLE productos 
+MODIFY COLUMN imagen LONGTEXT NULL;
+
 
 
