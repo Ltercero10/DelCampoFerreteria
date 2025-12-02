@@ -53,4 +53,14 @@ abstract class PrivateController extends PublicController
         $this->_isAuthorized();
 
     }
+    protected function requirePermission($perm_key) {
+    if (!isset($_SESSION['usercod'])) {
+        throw new \Controllers\PrivateNoLoggedException("No loggeado");
+    }
+    $usercod = $_SESSION['usercod'];
+    if (!\Dao\AuthDao::userHasPermission($usercod, $perm_key)) {
+        throw new \Controllers\PrivateNoAuthException("No autorizado");
+    }
+}
+
 }
