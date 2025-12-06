@@ -32,3 +32,26 @@ CREATE TABLE IF NOT EXISTS user_roles (
   FOREIGN KEY (usercod) REFERENCES usuario(usercod) ON DELETE CASCADE,
   FOREIGN KEY (role_id) REFERENCES roles(role_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- Roles
+INSERT INTO roles (role_name, role_desc) VALUES ('Admin', 'Administrador del sistema');
+
+-- Permisos
+INSERT INTO permissions (perm_key, perm_desc) VALUES ('users.create', 'Permite crear usuarios');
+
+-- Relación
+INSERT INTO role_permissions (role_id, perm_id) VALUES (1, 1);
+
+ALTER TABLE funciones ADD COLUMN fntyp VARCHAR(10) NOT NULL DEFAULT 'MNU';
+
+
+DESCRIBE funciones;
+
+CREATE TABLE funciones_roles (
+  rolescod VARCHAR(128) NOT NULL,
+  fncod VARCHAR(255) NOT NULL,
+  fnrolest CHAR(3) DEFAULT NULL,
+  fnexp DATETIME DEFAULT NULL,
+  PRIMARY KEY (rolescod, fncod)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

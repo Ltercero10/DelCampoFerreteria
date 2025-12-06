@@ -91,13 +91,157 @@ class Cart extends \Dao\Table
         $productosDisponibles = null;
         $prodsCarretillaAutorizada = null;
         $prodsCarretillaNAutorizada = null;
-        return $productosCurados;
+        return $productosCurados[$productId];
     }
+
 
     public static function getProducto($productId)
     {
         $sqlAllProductosActivos = "SELECT * from products where productId=:productId;";
         $productosDisponibles = self::obtenerRegistros($sqlAllProductosActivos, array("productId" => $productId));
         return $productosDisponibles;
+    }
+
+
+    public static function addToAnonCart(
+        int $productId,
+        string $anonCod,
+        int $amount,
+        float $price
+    ) {
+
+        $validateSql = "SELECT * FROM carretillaanom 
+                    WHERE anoncod = :anoncod 
+                      AND productId = :productId;";
+
+        $producto = self::obtenerUnRegistro(
+            $validateSql,
+            ["anoncod" => $anonCod, "productId" => $productId]
+        );
+
+
+        if ($producto && is_array($producto)) {
+            $updateSql = "UPDATE carretillaanom 
+                      SET crrctd = crrctd + 1 
+                      WHERE anoncod = :anoncod 
+                        AND productId = :productId;";
+
+            return self::executeNonQuery(
+                $updateSql,
+                ["anoncod" => $anonCod, "productId" => $productId]
+            );
+        } else {
+            return self::executeNonQuery(
+                "INSERT INTO carretillaanom 
+                (anoncod, productId, crrctd, crrprc, crrfching) 
+             VALUES 
+                (:anoncod, :productId, :crrctd, :crrprc, NOW());",
+                [
+                    "anoncod" => $anonCod,
+                    "productId" => $productId,
+                    "crrctd" => $amount,
+                    "crrprc" => $price
+                ]
+            );
+        }
+    }
+
+    public static function addToAuthCart(
+        int $productId,
+        int $usercod,
+        int $amount,
+        float $price
+    ) {
+
+        $validateSql = "SELECT * FROM carretilla 
+                    WHERE usercod = :usercod 
+                      AND productId = :productId;";
+
+        $producto = self::obtenerUnRegistro(
+            $validateSql,
+            ["usercod" => $usercod, "productId" => $productId]
+        );
+
+
+        if ($producto && is_array($producto)) {
+            $updateSql = "UPDATE carretilla 
+                      SET crrctd = crrctd + 1 
+                      WHERE usercod = :usercod 
+                        AND productId = :productId;";
+
+            return self::executeNonQuery(
+                $updateSql,
+                ["usercod" => $usercod, "productId" => $productId]
+            );
+        } else {
+            return self::executeNonQuery(
+                "INSERT INTO carretilla 
+                (usercod, productId, crrctd, crrprc, crrfching) 
+             VALUES 
+                (:usercod, :productId, :crrctd, :crrprc, NOW());",
+                [
+                    "usercod" => $usercod,
+                    "productId" => $productId,
+                    "crrctd" => $amount,
+                    "crrprc" => $price
+                ]
+            );
+        }
+    }
+
+    public static function getAnonCart(string $anonCod)
+    {
+
+
+        return self::obtenerRegistros(
+            "SELECT a.*, b.crrctd, b.crrprc, b.crrfching
+         FROM products a
+         INNER JOIN carretillaanom b ON a.productId = b.productId
+         WHERE b.anoncod = :anoncod;",
+            ["anoncod" => $anonCod]
+        );
+    }
+
+
+
+    public static function getAuthCart(int $usercod)
+    {
+        return self::obtenerRegistros(
+            "SELECT a.*, b.crrctd, b.crrprc, b.crrfching
+         FROM products a
+         INNER JOIN carretilla b ON a.productId = b.productId
+         WHERE b.usercod = :usercod;",
+            ["usercod" => $usercod]
+        );
+    }
+
+
+    public static function moveAnonToAuth(
+        string $anoncod,
+        int $usercod
+    ) {
+        $sqlstr = "INSERT INTO carretilla (usercod,productId, crrctd,crrprc,crrfching) 
+        SELECT :usercod, productId,crrctd, crrprc, NOW() FROM carretillaanom where anoncod = :anoncod
+        ON DUPLICATE KEY UPDATE carretilla.crrctd = carretilla.crrctd + carretillaanom.crrctd;";
+
+        $deleteSql = "DELETE FROM carretillaanom where anoncod - :anoncod;";
+
+        self::executeNonQuery($sqlstr, ["anoncod" => $anoncod, "usercod" => $usercod]);
+        self::executeNonQuery($deleteSql, ["anoncod" => $anoncod]);
+    }
+    public static function deleteFromAnonCart($anonCod, $productId)
+    {
+        return self::executeNonQuery(
+            "DELETE FROM carretillaanon WHERE anoncod = :anon AND productId = :pid;",
+            ["anon" => $anonCod, "pid" => $productId]
+        );
+    }
+
+    public static function deleteFromAuthCart($usercod, $productId)
+    {
+        return self::executeNonQuery(
+            "DELETE FROM carretilla WHERE usercod = :uid AND productId = :pid;",
+            ["uid" => $usercod, "pid" => $productId]
+        );
     }
 }

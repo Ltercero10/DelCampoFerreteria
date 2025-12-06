@@ -1,7 +1,6 @@
 <div class="container mt-4">
     <h1>Catálogo de Productos</h1>
 
-    <!-- Filtros -->
     <div class="card mb-4">
         <div class="card-body">
             <form method="get" action="index.php" class="row g-3">
@@ -28,11 +27,13 @@
                 <div class="col-md-2 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary">Filtrar</button>
                 </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <a href="index.php?page=Productos_Producto&mode=INS" class="btn btn-primary">Crear</a>
+                </div>
             </form>
         </div>
     </div>
 
-    <!-- Listado de productos -->
     <div class="productos-lista">
 
         {{foreach productos}}
@@ -54,25 +55,42 @@
 
             <p class="precio">${{precio}}</p>
 
-            <!-- Estado de Stock -->
             {{if stock_mayor_cero}}
-            <span class="badge badge-success">En stock</span>
+            <span class="badge bg-success">En stock ({{stock}})</span>
             {{endif stock_mayor_cero}}
 
             {{ifnot stock_mayor_cero}}
-            <span class="badge badge-danger">Agotado</span>
+            <span class="badge bg-danger">Agotado</span>
             {{endifnot stock_mayor_cero}}
 
-            <a href="index.php?page=Productos_Producto&id={{id}}">
+            <br>
+
+
+            <a href="index.php?page=Productos_Producto&mode=DSP&id={{id}}">
                 Ver detalles
             </a>
 
+            <a href="index.php?page=Productos_Producto&mode=UPD&id={{id}}" class="btn btn-warning btn-sm">
+                Editar
+            </a>
+
+            <form action="index.php" method="GET" style="display: inline;"
+                onsubmit="return confirm('¿Está seguro de eliminar el producto {{nombre}}?');">
+                <input type="hidden" name="page" value="Productos_Producto">
+                <input type="hidden" name="mode" value="DEL">
+                <input type="hidden" name="id" value="{{id}}">
+                <button type="submit" class="btn btn-danger btn-sm">
+                    Eliminar
+                </button>
+            </form>
+
         </div>
+
+
         {{endfor productos}}
 
     </div>
 
-    <!-- Paginación -->
     {{if pages > 1}}
     <nav aria-label="Page navigation" class="mt-4">
         <ul class="pagination justify-content-center">

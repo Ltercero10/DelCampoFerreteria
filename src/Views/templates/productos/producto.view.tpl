@@ -1,13 +1,13 @@
 <div class="container mt-4">
 
-    
+
     <style>
         .img-producto {
             width: 500px;
             height: 500px;
-            object-fit: cover; 
+            object-fit: cover;
             border-radius: 10px;
-            
+
             background: #f9f9f9;
         }
 
@@ -27,13 +27,12 @@
 
     <h1>{{nombre}}</h1>
 
+    </br>
     <div class="row">
         <div class="col-md-6 text-center">
 
             {{if imagen}}
-            <img src="data:image/jpeg;base64,{{imagen}}" 
-                 alt="{{nombre}}" 
-                 class="img-producto">
+            <img src="data:image/jpeg;base64,{{imagen}}" alt="{{nombre}}" class="img-producto">
             {{endif imagen}}
 
             {{ifnot imagen}}
@@ -48,13 +47,16 @@
             <h3 class="text-primary">$ {{precio}}</h3>
 
             {{if stock_mayor_cero}}
-            <span class="badge bg-success">En stock</span>
+            <span class="badge bg-success">En stock ({{stock}})</span>
             {{endif stock_mayor_cero}}
 
             {{ifnot stock_mayor_cero}}
             <span class="badge bg-danger">Agotado</span>
             {{endifnot stock_mayor_cero}}
 
+            <br><br>
+
+            
             <br><br>
             <a href="index.php?page=Productos_Productos" class="btn btn-secondary">Volver al catálogo</a>
         </div>
@@ -63,7 +65,8 @@
             <h5>Subir nueva imagen</h5>
             <form action="index.php?page=Productos_Producto&id={{id}}" method="POST" enctype="multipart/form-data">
                 <input type="file" name="imagen" accept="image/*" required />
-                <button type="submit" class="btn btn-primary btn-sm">Subir imagen</button>
+                </br></br>
+                <button type="submit" class="btn btn-primary btn-lg">Subir imagen</button>
             </form>
         </div>
 

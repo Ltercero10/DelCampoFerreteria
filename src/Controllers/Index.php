@@ -13,6 +13,13 @@
 
 namespace Controllers;
 
+
+use Dao\Cart\Cart;
+use Random\Engine\Secure;
+use Utilities\Cart\CartFns;
+use Utilities\Site;
+use Utilities\Security;
+
 /**
  * Index Controller
  *
@@ -31,7 +38,61 @@ class Index extends PublicController
      */
     public function run(): void
     {
-        $viewData = array();
+
+        Site::addLink("public/css/productos.css");
+
+
+        if ($this->isPostBack()) {
+            if (Security::isLogged()) {
+                $usercod = Security::getUserId();
+
+                $productId = intval($_POST["productId"]);
+                $product = Cart::getProductoDisponible($productId);
+                if ($product["productStock"] - 1 >= 0) {
+                    Cart::addToAuthCart(
+                        intval($_POST["productId"]),
+                        $usercod,
+                        1,
+                        $product["productPrice"]
+
+                    );
+                }
+            } else {
+                $cartAnonCod = CartFns::getAnnonCartCode();
+
+                if (isset($_POST["addTocart"])) {
+                    $productId = intval($_POST["productId"]);
+                    $product = Cart::getProductoDisponible($productId);
+                    if ($product["productStock"] - 1 >= 0) {
+                        Cart::addToAnonCart(
+                            intval($_POST["productId"]),
+                            $cartAnonCod,
+                            1,
+                            $product["productPrice"]
+
+                        );
+                    }
+                }
+            }
+
+            $this->getCartCounter();
+        }
+        $products = Cart::getProductosDisponibles();
+
+        foreach ($products as &$product) {
+            if ($product['productStock'] > 0) {
+                $product['stockText'] = "📦 " . $product['productStock'] . " unidades";
+            } else {
+                $product['stockText'] = "🚫 Agotado";
+            }
+        }
+
+
+
+        $viewData = [
+            "SITE_TITLE" => "Ferretería - Productos", // Agrega esto
+            "products" => $products,
+        ];
         \Views\Renderer::render("index", $viewData);
     }
 }
