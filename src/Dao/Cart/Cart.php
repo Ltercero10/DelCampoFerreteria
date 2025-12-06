@@ -48,7 +48,6 @@ class Cart extends \Dao\Table
         $prodsCarretillaNAutorizada = null;
         return $productosCurados;
     }
-
     public static function getProductoDisponible($productId)
     {
         $sqlAllProductosActivos = "SELECT * from products where productStatus in ('ACT') and productId=:productId;";
@@ -93,16 +92,12 @@ class Cart extends \Dao\Table
         $prodsCarretillaNAutorizada = null;
         return $productosCurados[$productId];
     }
-
-
     public static function getProducto($productId)
     {
         $sqlAllProductosActivos = "SELECT * from products where productId=:productId;";
         $productosDisponibles = self::obtenerRegistros($sqlAllProductosActivos, array("productId" => $productId));
         return $productosDisponibles;
     }
-
-
     public static function addToAnonCart(
         int $productId,
         string $anonCod,
@@ -145,7 +140,6 @@ class Cart extends \Dao\Table
             );
         }
     }
-
     public static function addToAuthCart(
         int $productId,
         int $usercod,
@@ -188,7 +182,6 @@ class Cart extends \Dao\Table
             );
         }
     }
-
     public static function getAnonCart(string $anonCod)
     {
 
@@ -201,9 +194,6 @@ class Cart extends \Dao\Table
             ["anoncod" => $anonCod]
         );
     }
-
-
-
     public static function getAuthCart(int $usercod)
     {
         return self::obtenerRegistros(
@@ -214,8 +204,6 @@ class Cart extends \Dao\Table
             ["usercod" => $usercod]
         );
     }
-
-
     public static function moveAnonToAuth(
         string $anoncod,
         int $usercod
@@ -232,16 +220,77 @@ class Cart extends \Dao\Table
     public static function deleteFromAnonCart($anonCod, $productId)
     {
         return self::executeNonQuery(
-            "DELETE FROM carretillaanon WHERE anoncod = :anon AND productId = :pid;",
+            "DELETE FROM carretillaanom WHERE anoncod = :anon AND productId = :pid;",
             ["anon" => $anonCod, "pid" => $productId]
         );
     }
-
     public static function deleteFromAuthCart($usercod, $productId)
     {
         return self::executeNonQuery(
             "DELETE FROM carretilla WHERE usercod = :uid AND productId = :pid;",
             ["uid" => $usercod, "pid" => $productId]
         );
+    }
+    public static function updateAnonCartQuantity($anonCod, $productId, $quantity)
+    {
+        $sql = "UPDATE carretillaanom SET crrctd = :quantity 
+            WHERE anoncod = :anoncod AND productId = :productId";
+
+        return self::executeNonQuery($sql, [
+            "quantity" => $quantity,
+            "anoncod" => $anonCod,
+            "productId" => $productId
+        ]);
+    }
+    public static function updateAuthCartQuantity($usercod, $productId, $quantity)
+    {
+        $sql = "UPDATE carretilla SET crrctd = :quantity 
+            WHERE usercod = :usercod AND productId = :productId";
+
+        return self::executeNonQuery($sql, [
+            "quantity" => $quantity,
+            "usercod" => $usercod,
+            "productId" => $productId
+        ]);
+    }
+    public static function decreaseAuthCartItem(int $usercod, int $productId)
+    {
+        $item = self::obtenerUnRegistro(
+            "SELECT * FROM carretilla WHERE usercod = :usercod AND productId = :productId",
+            ['usercod' => $usercod, 'productId' => $productId]
+        );
+
+        if ($item && $item['crrctd'] > 1) {
+            return self::executeNonQuery(
+                "UPDATE carretilla SET crrctd = crrctd - 1 WHERE usercod = :usercod AND productId = :productId",
+                ['usercod' => $usercod, 'productId' => $productId]
+            );
+        } elseif ($item) {
+            return self::executeNonQuery(
+                "DELETE FROM carretilla WHERE usercod = :usercod AND productId = :productId",
+                ['usercod' => $usercod, 'productId' => $productId]
+            );
+        }
+        return 0;
+    }
+    public static function decreaseAnonCartItem(string $anonCod, int $productId)
+    {
+        $item = self::obtenerUnRegistro(
+            "SELECT * FROM carretillaanom WHERE anoncod = :anonCod AND productId = :productId",
+            ['anonCod' => $anonCod, 'productId' => $productId]
+        );
+
+        if ($item && $item['crrctd'] > 1) {
+            return self::executeNonQuery(
+                "UPDATE carretillaanom SET crrctd = crrctd - 1 WHERE anoncod = :anonCod AND productId = :productId",
+                ['anonCod' => $anonCod, 'productId' => $productId]
+            );
+        } elseif ($item) {
+            return self::executeNonQuery(
+                "DELETE FROM carretillaanom WHERE anoncod = :anonCod AND productId = :productId",
+                ['anonCod' => $anonCod, 'productId' => $productId]
+            );
+        }
+        return 0;
     }
 }

@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{BASE_DIR}}/public/css/appstyle.css" />
   <link rel="stylesheet" href="{{BASE_DIR}}/public/css/productos.css" />
+  <link rel="stylesheet" href="{{BASE_DIR}}/public/css/cart.css" />
 
 
 
