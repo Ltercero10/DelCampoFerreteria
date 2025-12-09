@@ -2,9 +2,11 @@
     <div class="justify-content-between align-items-center mb-4">
 
         <h1 class="mb-4">Catálogo de Productos</h1>
+        {{if is_admin}}
         <a href="index.php?page=Mantenimientos_Productos_ProductosForm&mode=INS" class="btn btn-primary">
-             Agregar Nuevo Producto
+            Agregar Nuevo Producto
         </a>
+        {{endif is_admin}}
 
     </div>
 
@@ -42,22 +44,25 @@
                 </div>
                 
 
-                <div class="card-footer bg-white border-top-0 pt-0">
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="index.php?page=Mantenimientos_Productos_ProductosForm&mode=DSP&productId={{productId}}"
-                            class="btn btn-sm btn-outline-primary">
-                            Ver
-                        </a>
-                        <a href="index.php?page=Mantenimientos_Productos_ProductosForm&mode=UPD&productId={{productId}}"
-                            class="btn btn-sm btn-outline-warning">
-                            Editar
-                        </a>
-                        <a href="index.php?page=Mantenimientos_Productos_ProductosForm&mode=DEL&productId={{productId}}"
-                            class="btn btn-sm btn-outline-danger">
-                            Eliminar
-                        </a>
+                    <div class="card-footer bg-white border-top-0 pt-0">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="index.php?page=Mantenimientos_Productos_ProductosForm&mode=DSP&productId={{productId}}"
+                                class="btn btn-sm btn-outline-primary">
+                                Ver
+                            </a>
+                            
+                            {{if ~is_admin}}
+                            <a href="index.php?page=Mantenimientos_Productos_ProductosForm&mode=UPD&productId={{productId}}"
+                                class="btn btn-sm btn-outline-warning">
+                                Editar
+                            </a>
+                            <a href="index.php?page=Mantenimientos_Productos_ProductosForm&mode=DEL&productId={{productId}}"
+                                class="btn btn-sm btn-outline-danger">
+                                Eliminar
+                            </a>
+                            {{endif ~is_admin}}
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
         {{endfor rows}}

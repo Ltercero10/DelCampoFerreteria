@@ -28,18 +28,14 @@ class Historial extends PublicController
         if (!empty($transacciones)) {
             foreach ($transacciones as $trans) {
 
-
                 $fecha = "N/A";
                 if (!empty($trans['fecha'])) {
-                    $fecha = date("d/m/Y H:i", strtotime($trans['fecha']));
+                    // 02/12/2025 02:30 PM
+                    $fecha = date("d/m/Y h:i A", strtotime($trans['fecha']));
                 }
 
-
                 $monto = number_format((float)($trans['monto'] ?? 0), 2);
-
-
                 $estado = ucfirst($trans['estado'] ?? 'pendiente');
-
 
                 $productosHtml = "Sin productos";
                 if (!empty($trans['productos'])) {
@@ -57,7 +53,6 @@ class Historial extends PublicController
                         $productosHtml .= "</ul>";
                     }
                 }
-
 
                 $html .= "<tr>";
                 $html .= "<td>" . ($trans['id'] ?? 'N/A') . "</td>";

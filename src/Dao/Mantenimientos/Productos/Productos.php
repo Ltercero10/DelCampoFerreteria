@@ -83,4 +83,18 @@ class Productos extends Table
             ["productId" => $productId]
         );
     }
+
+
+    public static function reducirStock($productId, $cantidad)
+    {
+
+        $sql = "UPDATE products 
+                SET productStock = productStock - :cantidad 
+                WHERE productId = :productId AND productStock >= :cantidad;";
+
+        return self::executeNonQuery($sql, [
+            "cantidad" => $cantidad,
+            "productId" => $productId
+        ]);
+    }
 }

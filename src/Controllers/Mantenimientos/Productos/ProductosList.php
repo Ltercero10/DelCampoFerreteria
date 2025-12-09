@@ -12,6 +12,9 @@ class ProductosList extends PrivateController
     public function run(): void
     {
         $viewData["rows"] = ProductosDao::getAll();
+
+        $viewData["is_admin"] = \Utilities\Security::isInRol(\Utilities\Security::getUserId(), 'ADMIN');
+
         Renderer::render("mantenimientos/productos/productos_list", $viewData);
     }
 }

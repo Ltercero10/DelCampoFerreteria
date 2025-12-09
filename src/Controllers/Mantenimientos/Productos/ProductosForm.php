@@ -196,7 +196,19 @@ class ProductosForm extends PrivateController
 
     public function run(): void
     {
+
         $this->cargarDatos();
+
+
+        if ($this->mode !== "DSP") {
+            if (!\Utilities\Security::isInRol(\Utilities\Security::getUserId(), 'ADMIN')) {
+                \Utilities\Site::redirectToWithMsg(
+                    "index.php?page=Mantenimientos_Productos_ProductosList",
+                    "¡No tienes permiso para realizar esta acción!"
+                );
+                return;
+            }
+        }
 
         if ($this->isPostBack()) {
             $this->getPostData();

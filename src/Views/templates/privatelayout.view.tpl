@@ -44,8 +44,6 @@
         <li><a href="{{nav_url}}">{{nav_label}}</a></li>
         {{endfor NAVIGATION}}
 
-        <li><a href="index.php?page=Mantenimientos_Productos_ProductosList"><i class="fa-slab fa-regular fa-book"></i>&nbsp;Catalogo</a></li>
-        <li><a href="index.php?page=Checkout_Checkout"><i class="fas fa-shopping-cart"></i>&nbsp;Carrito</a></li>
         
 
         <li><a href="index.php?page=sec_logout"><i class="fas fa-sign-out-alt"></i>&nbsp;Salir</a></li>

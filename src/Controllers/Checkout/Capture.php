@@ -42,6 +42,12 @@ class Capture extends PublicController
         foreach ($cartItems as $item) {
             $precio = $item['crrprc'] ?? 0;
             $cantidad = $item['crrctd'] ?? 1;
+
+            $prodId = $item['productId'] ?? 0;
+            if ($prodId > 0) {
+                \Dao\Mantenimientos\Productos\Productos::reducirStock($prodId, $cantidad);
+            }
+
             $subtotal = $precio * $cantidad;
             $total += $subtotal;
 
