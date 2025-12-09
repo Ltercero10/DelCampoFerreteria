@@ -10,6 +10,15 @@
   <link rel="stylesheet" href="{{BASE_DIR}}/public/css/appstyle.css" />
   <link rel="stylesheet" href="{{BASE_DIR}}/public/css/productos.css" />
   <link rel="stylesheet" href="{{BASE_DIR}}/public/css/cart.css" />
+
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <script src="https://kit.fontawesome.com/{{FONT_AWESOME_KIT}}.js" crossorigin="anonymous"></script>
   {{foreach SiteLinks}}
   <link rel="stylesheet" href="{{~BASE_DIR}}/{{this}}" />
@@ -32,14 +41,20 @@
       <ul>
         <li><a href="index.php?page={{PRIVATE_DEFAULT_CONTROLLER}}"><i class="fas fa-home"></i>&nbsp;Inicio</a></li>
         {{foreach NAVIGATION}}
-            <li><a href="{{nav_url}}">{{nav_label}}</a></li>
+        <li><a href="{{nav_url}}">{{nav_label}}</a></li>
         {{endfor NAVIGATION}}
+
+        <li><a href="index.php?page=Mantenimientos_Productos_ProductosList"><i class="fa-slab fa-regular fa-book"></i>&nbsp;Catalogo</a></li>
+        <li><a href="index.php?page=Checkout_Checkout"><i class="fas fa-shopping-cart"></i>&nbsp;Carrito</a></li>
+        
+
         <li><a href="index.php?page=sec_logout"><i class="fas fa-sign-out-alt"></i>&nbsp;Salir</a></li>
       </ul>
     </nav>
-    {{with login}} 
-    <span>{{if ~CART_ITEMS}}{{CART_ITEMS}}{{endif ~CART_ITEMS}}</span>
-    <span class="username">{{userName}} <a href="index.php?page=sec_logout"><i class="fas fa-sign-out-alt"></i></a></span>
+    <span class="fas fa-shopping-cart">{{if ~CART_ITEMS}}{{CART_ITEMS}}{{endif ~CART_ITEMS}}</span>
+    {{with login}}
+    <span class="username">{{userName}} <a href="index.php?page=sec_logout"><i
+          class="fas fa-sign-out-alt"></i></a></span>
     {{endwith login}}
   </header>
   <main>
@@ -52,4 +67,5 @@
   <script src="{{~BASE_DIR}}/{{this}}"></script>
   {{endfor EndScripts}}
 </body>
+
 </html>

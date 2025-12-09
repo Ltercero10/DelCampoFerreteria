@@ -14,6 +14,7 @@
 namespace Controllers;
 
 
+
 use Dao\Cart\Cart;
 use Random\Engine\Secure;
 use Utilities\Cart\CartFns;
@@ -38,6 +39,7 @@ class Index extends PublicController
      */
     public function run(): void
     {
+
 
         Site::addLink("public/css/productos.css");
 
@@ -90,7 +92,7 @@ class Index extends PublicController
 
 
         $viewData = [
-            "SITE_TITLE" => "Ferretería - Productos", // Agrega esto
+            "SITE_TITLE" => "Ferretería - Productos",
             "products" => $products,
         ];
         \Views\Renderer::render("index", $viewData);

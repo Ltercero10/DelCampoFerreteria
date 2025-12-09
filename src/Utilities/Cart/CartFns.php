@@ -4,6 +4,8 @@ namespace Utilities\Cart;
 
 use Unicah\Oop\Utilitarios\StandardLogger;
 
+use Dao\Cart\Cart;
+
 class CartFns
 {
 
@@ -26,5 +28,15 @@ class CartFns
         };
         $_SESSION["annonCartCode"] = substr(md5("cart2025" . time() . random_int(10000, 99999)), 0, 128);
         return $_SESSION["annonCartCode"];
+    }
+    public static function getAuthCartItemCount(int $usercod): int
+    {
+        return Cart::getCantidadCarritoUsuario($usercod);
+    }
+
+
+    public static function getAnonCartItemCount(string $anonCod): int
+    {
+        return Cart::getCantidadCarritoAnonimo($anonCod);
     }
 }

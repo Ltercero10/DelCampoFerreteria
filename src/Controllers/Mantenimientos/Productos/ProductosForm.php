@@ -2,12 +2,13 @@
 
 namespace Controllers\Mantenimientos\Productos;
 
+use Controllers\PrivateController;
 use Dao\Mantenimientos\Productos\Productos as ProductosDao;
 use Controllers\PublicController;
 use Views\Renderer;
 use Utilities\Site;
 
-class ProductosForm extends PublicController
+class ProductosForm extends PrivateController
 {
     private $viewData = [];
     private $mode = "DSP";

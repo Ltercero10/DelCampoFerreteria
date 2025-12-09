@@ -3,7 +3,7 @@
 
         <h1 class="mb-4">Catálogo de Productos</h1>
         <a href="index.php?page=Mantenimientos_Productos_ProductosForm&mode=INS" class="btn btn-primary">
-            ➕ Agregar Nuevo Producto
+             Agregar Nuevo Producto
         </a>
 
     </div>
@@ -40,12 +40,7 @@
 
 
                 </div>
-                <div>
-                    <form action="index.php?page=Mantenimientos_Productos_ProductosList" method="POST">
-                        <input type="hidden" name="productId" value="{{productId}}">
-                        <button type="submit" name="addTocart" class="btn btn-sm btn-outline-primary add-to-cart">Agregar al carrito</button>
-                    </form>
-                </div>
+                
 
                 <div class="card-footer bg-white border-top-0 pt-0">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">

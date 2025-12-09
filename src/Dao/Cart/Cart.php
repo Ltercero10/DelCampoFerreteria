@@ -293,4 +293,26 @@ class Cart extends \Dao\Table
         }
         return 0;
     }
+    public static function clearAuthCart($usercod)
+    {
+        $sql = "DELETE FROM carretilla WHERE usercod = :usercod";
+        return \Dao\Table::executeNonQuery($sql, ["usercod" => $usercod]);
+    }
+
+    public static function clearAnonCart($anonCod)
+    {
+        $sql = "DELETE FROM carretillaanom WHERE anoncod = :anoncod";
+        return \Dao\Table::executeNonQuery($sql, ["anoncod" => $anonCod]);
+    }
+    public static function removeAllFromAuthCart($usercod)
+    {
+        $sql = "DELETE FROM carretilla WHERE usercod = :usercod";
+        return self::executeNonQuery($sql, ["usercod" => $usercod]);
+    }
+
+    public static function removeAllFromAnonCart($anonCod)
+    {
+        $sql = "DELETE FROM carretillaanom WHERE anoncod = :anoncod";
+        return self::executeNonQuery($sql, ["anoncod" => $anonCod]);
+    }
 }

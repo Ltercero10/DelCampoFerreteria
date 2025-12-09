@@ -152,3 +152,16 @@ button[name="increase"]:hover {
         font-size: 1.1rem;
     }
 }
+
+.cart-badge-menu {
+  background-color: #dc3545;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+}
