@@ -49,6 +49,15 @@
     </a>
 </div>
 
+
+<div style="margin-top: 20px; margin-bottom: 20px;">
+    <form action="index.php?page=Checkout_Checkout" method="post" onsubmit="return confirm('¿Estás seguro de vaciar el carrito?');">
+        <button type="submit" name="empty_cart" class="btn btn-danger" style="background-color: #dc3545; color: white;">
+            🗑️ Vaciar Carrito
+        </button>
+    </form>
+</div>
+
 <div id="paypal-button-container"></div>
 
 <script>

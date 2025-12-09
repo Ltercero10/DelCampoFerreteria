@@ -14,6 +14,12 @@ class Checkout extends PublicController
 {
     public function run(): void
     {
+
+        if (!\Utilities\Security::isLogged()) {
+            \Utilities\Site::redirectTo("index.php?page=Sec_Login&redirto=" . urlencode("index.php?page=Checkout_Checkout"));
+            return;
+        }
+
         // Asegurar sesión
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
@@ -54,6 +60,17 @@ class Checkout extends PublicController
                     CartDao::decreaseAuthCartItem($usercod, $productId);
                 } else {
                     CartDao::decreaseAnonCartItem($anonCod, $productId);
+                }
+                Site::redirectTo('index.php?page=Checkout_Checkout');
+                die();
+            }
+
+
+            if (isset($_POST['empty_cart'])) {
+                if (Security::isLogged()) {
+                    CartDao::removeAllFromAuthCart($usercod);
+                } else {
+                    CartDao::removeAllFromAnonCart($anonCod);
                 }
                 Site::redirectTo('index.php?page=Checkout_Checkout');
                 die();

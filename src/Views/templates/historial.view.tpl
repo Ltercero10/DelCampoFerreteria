@@ -1,15 +1,27 @@
-<h1>Historial de Pagos</h1>
+<div class="container mt-4">
+    <h1 class="mb-4">Historial de Pagos</h1>
 
-<p>Total de transacciones: {{total_transacciones}}</p>
+    <div class="alert alert-info">
+        <strong>Total de transacciones:</strong> {{total_transacciones}}
+    </div>
 
-<table border="1" cellpadding="10" cellspacing="0" width="100%">
-    <tr>
-        <th>ID</th>
-        <th>Fecha</th>
-        <th>Monto</th>
-        <th>Estado</th>
-        <th>Productos</th>
-    </tr>
-
-    {{tabla_transacciones}}
-</table>
+    <div class="table-responsive shadow-sm">
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    {{if is_admin}}
+                    <th>Usuario</th>
+                    {{endif is_admin}}
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                    <th>Productos</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{tabla_transacciones}}
+            </tbody>
+        </table>
+    </div>
+</div>

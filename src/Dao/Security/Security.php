@@ -58,7 +58,6 @@ class Security extends \Dao\Table
         }
 
         $newUser = self::_usuarioStruct();
-        //Tratamiento de la Contraseña
         $hashedPassword = self::_hashPassword($password);
 
         unset($newUser["usercod"]);
@@ -66,10 +65,10 @@ class Security extends \Dao\Table
         unset($newUser["userpswdchg"]);
 
         $newUser["useremail"] = $email;
-        $newUser["username"] = "John Doe";
+        $newUser["username"] = "Usuario Nuevo";
         $newUser["userpswd"] = $hashedPassword;
         $newUser["userpswdest"] = Estados::ACTIVO;
-        $newUser["userpswdexp"] = date('Y-m-d', time() + 7776000);  //(3*30*24*60*60) (m d h mi s)
+        $newUser["userpswdexp"] = date('Y-m-d', time() + 7776000);
         $newUser["userest"] = Estados::ACTIVO;
         $newUser["useractcod"] = hash("sha256", $email . time());
         $newUser["usertipo"] = UsuarioTipo::PUBLICO;
@@ -82,7 +81,20 @@ class Security extends \Dao\Table
             now(), :userpswdest, :userpswdexp, :userest, :useractcod,
             now(), :usertipo);";
 
-        return self::executeNonQuery($sqlIns, $newUser);
+        // 1. Insertar Usuario
+        if (self::executeNonQuery($sqlIns, $newUser)) {
+            // 2. Obtener el ID del usuario recién creado
+            $user = self::getUsuarioByEmail($email);
+            $userId = $user['usercod'];
+
+            // 3. Asignar Rol de CLIENTE automáticamente
+            $sqlRol = "INSERT INTO roles_usuarios (usercod, rolescod, roleuserest, roleuserfch, roleuserexp)
+                       VALUES (:usercod, 'CLIENT', 'ACT', NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR));";
+
+            return self::executeNonQuery($sqlRol, ['usercod' => $userId]);
+        }
+
+        return false;
     }
 
     static public function getUsuarioByEmail($email)

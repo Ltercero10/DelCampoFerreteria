@@ -47,7 +47,11 @@
         {{endfor PUBLIC_NAVIGATION}}
       </ul>
     </nav>
-    <span>{{if ~CART_ITEMS}}{{CART_ITEMS}}{{endif ~CART_ITEMS}}</span>
+    <a href="index.php?page=Checkout_Checkout" style="text-decoration:none; color:white;">
+      <span class="fas fa-shopping-cart">
+        {{if ~CART_ITEMS}}{{CART_ITEMS}}{{endif ~CART_ITEMS}}
+      </span>
+    </a>
   </header>
   <main>
     {{{page_content}}}

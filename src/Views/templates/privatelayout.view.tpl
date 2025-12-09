@@ -49,7 +49,11 @@
         <li><a href="index.php?page=sec_logout"><i class="fas fa-sign-out-alt"></i>&nbsp;Salir</a></li>
       </ul>
     </nav>
-    <span class="fas fa-shopping-cart">{{if ~CART_ITEMS}}{{CART_ITEMS}}{{endif ~CART_ITEMS}}</span>
+    <a href="index.php?page=Checkout_Checkout" style="text-decoration:none; color:white;">
+      <span class="fas fa-shopping-cart">
+        {{if ~CART_ITEMS}}{{CART_ITEMS}}{{endif ~CART_ITEMS}}
+      </span>
+    </a>
     {{with login}}
     <span class="username">{{userName}} <a href="index.php?page=sec_logout"><i
           class="fas fa-sign-out-alt"></i></a></span>

@@ -35,4 +35,13 @@ class Transactions extends Table
 
         return self::obtenerRegistros($sql, ["usuario_id" => $usuarioId]);
     }
+
+    public static function getAll(): array
+    {
+        $sql = "SELECT t.*, u.useremail 
+                FROM transacciones t
+                JOIN usuario u ON t.usuario_id = u.usercod
+                ORDER BY t.fecha DESC";
+        return self::obtenerRegistros($sql, []);
+    }
 }
