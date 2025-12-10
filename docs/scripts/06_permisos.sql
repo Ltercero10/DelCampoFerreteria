@@ -18,8 +18,7 @@ INSERT IGNORE INTO funciones_roles (rolescod, fncod, fnrolest, fnexp) VALUES ('A
 INSERT IGNORE INTO funciones_roles (rolescod, fncod, fnrolest, fnexp) VALUES ('ADMIN', 'Menu_PaymentCheckout', 'ACT', '2030-01-01');
 
 
-INSERT IGNORE INTO funciones_roles (rolescod, fncod, fnrolest, fnexp) VALUES ('CLIENT', 'Controllers\\Mantenimientos\\Productos\\ProductosList', 'ACT', '2030-01-01');
-INSERT IGNORE INTO funciones_roles (rolescod, fncod, fnrolest, fnexp) VALUES ('CLIENT', 'Controllers\\Mantenimientos\\Productos\\ProductosForm', 'ACT', '2030-01-01');
+
 
 
 INSERT IGNORE INTO funciones_roles (rolescod, fncod, fnrolest, fnexp) VALUES ('CLIENT', 'Menu_Historial', 'ACT', '2030-01-01');
