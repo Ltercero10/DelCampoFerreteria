@@ -140,10 +140,10 @@ class Checkout extends PublicController
                             'status' => 'pending'
                         ];
 
-                        // Guardar en archivo temporal (o en base de datos)
+
                         $this->saveOrderToFile($paypalOrder['id'], $orderData);
 
-                        // También guardar en cookie por si acaso
+
                         setcookie('pending_order_id', $paypalOrder['id'], time() + 3600, '/');
 
                         // Buscar la URL de aprobación

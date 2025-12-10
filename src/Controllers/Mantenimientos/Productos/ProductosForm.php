@@ -75,10 +75,12 @@ class ProductosForm extends PrivateController
 
         if ($this->mode !== $tmp_mode) {
             $this->throwError("Modo de formulario inválido");
-        }/*
-        if (!$this->validateCsfrToken()) {
-            $this->throwError("Error de aplicación, Token CSRF Inválido");
-        }*/
+        }
+
+
+
+
+
 
         $this->productName = $tmp_productName;
         $this->productDescription = $tmp_productDescription;
@@ -88,6 +90,7 @@ class ProductosForm extends PrivateController
         $this->productStatus = $tmp_productStatus;
         $this->mode = $tmp_mode;
     }
+
 
     private function validateCsfrToken()
     {
