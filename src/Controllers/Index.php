@@ -85,7 +85,7 @@ class Index extends PublicController
             if ($product['productStock'] > 0) {
                 $product['stockText'] = "📦 " . $product['productStock'] . " unidades";
             } else {
-                $product['stockText'] = "🚫 Agotado";
+                $product['stockText'] = " Agotado";
             }
         }
 

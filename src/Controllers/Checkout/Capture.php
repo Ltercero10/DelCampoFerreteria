@@ -12,7 +12,7 @@ class Capture extends PublicController
 {
     public function run(): void
     {
-        // 1. token de PayPal
+
         $token = $_GET['token'] ?? '';
 
         if (empty($token)) {
@@ -20,7 +20,7 @@ class Capture extends PublicController
             return;
         }
 
-        // 2. Verificar usuario
+
         if (!Security::isLogged()) {
             $this->showError("Debes iniciar sesión");
             return;

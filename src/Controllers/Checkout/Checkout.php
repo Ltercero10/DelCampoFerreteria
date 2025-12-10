@@ -20,7 +20,7 @@ class Checkout extends PublicController
             return;
         }
 
-        // Asegurar sesión
+
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
@@ -34,7 +34,7 @@ class Checkout extends PublicController
             $items   = CartDao::getAnonCart($anonCod);
         }
 
-        // Manejar acciones POST (aumentar/disminuir)
+
         if ($this->isPostBack()) {
             $productId = intval($_POST['productId'] ?? 0);
 
@@ -130,7 +130,7 @@ class Checkout extends PublicController
                     error_log("PayPal createOrder response: " . json_encode($paypalOrder));
 
                     if (isset($paypalOrder['id']) && isset($paypalOrder['status']) && $paypalOrder['status'] === 'CREATED') {
-                        // GUARDAR EN BASE DE DATOS O ARCHIVO 
+
                         $orderData = [
                             'order_id' => $paypalOrder['id'],
                             'user_id' => Security::isLogged() ? Security::getUserId() : null,

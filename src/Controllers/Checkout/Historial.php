@@ -16,10 +16,9 @@ class Historial extends PublicController
         }
 
         $userId = Security::getUserId();
-        // Detectar si es Admin
         $isAdmin = Security::isInRol($userId, 'ADMIN');
 
-        // Traer datos según el rol
+
         if ($isAdmin) {
             $transacciones = Transactions::getAll();
         } else {
@@ -54,7 +53,7 @@ class Historial extends PublicController
                     }
                 }
 
-                // --- CONSTRUCCIÓN DE LA FILA ---
+
                 $html .= "<tr>";
                 $html .= "<td>" . ($trans['id'] ?? 'N/A') . "</td>";
 

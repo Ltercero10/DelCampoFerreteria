@@ -24,8 +24,3 @@
     {{endfor products}}
 </div>
 
-{{#if products.length == 0}}
-<div class="no-products">
-    <p>📦 No hay productos disponibles en este momento.</p>
-</div>
-{{/if}}
