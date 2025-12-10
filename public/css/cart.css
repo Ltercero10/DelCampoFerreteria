@@ -1,0 +1,167 @@
+/* carrito.css */
+:root {
+    --primary-color: #d33131;
+    --secondary-color: #3a0ca3;
+    --light-gray: #f8f9fa;
+    --medium-gray: #e9ecef;
+    --dark-gray: #495057;
+    --border-radius: 8px;
+}
+
+
+
+h1 {
+    color: var(--secondary-color);
+    text-align: center;
+    margin-bottom: 35px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid var(--medium-gray);
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+th {
+    padding: 18px 15px;
+    text-align: left;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 18px 15px;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: rgba(67, 97, 238, 0.03);
+}
+
+/* Fila de Total */
+.total-row {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    border-top: 2px solid var(--primary-color);
+}
+
+.total-label {
+    text-align: right;
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+}
+
+.total-amount {
+    font-size: 1.3rem;
+    color: var(--secondary-color);
+}
+
+
+button {
+    padding: 8px 15px;
+    margin: 0 3px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+button[name="decrease"] {
+    background-color: #f8d7da;
+    color: #dc3545;
+}
+
+button[name="decrease"]:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+button[name="increase"] {
+    background-color: #d4edda;
+    color: #28a745;
+}
+
+button[name="increase"]:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.continue-btn {
+    display: inline-block;
+    background: #2a5ca7;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.2s;
+    margin-top: 20px;
+}
+
+.continue-btn:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* PayPal */
+#paypal-button-container {
+    margin-top: 30px;
+    max-width: 400px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 15px 10px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+    }
+    
+    th, td {
+        padding: 12px 8px;
+        font-size: 0.9rem;
+    }
+    
+    .total-amount {
+        font-size: 1.1rem;
+    }
+}
+
+.cart-badge-menu {
+  background-color: #dc3545;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+}

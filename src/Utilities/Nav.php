@@ -56,10 +56,6 @@ class Nav
         return $jsonData;
     }
 
-    private function __construct()
-    {
-    }
-    private function __clone()
-    {
-    }
+    private function __construct() {}
+    private function __clone() {}
 }

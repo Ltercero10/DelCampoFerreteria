@@ -1,43 +1,21 @@
-CREATE TABLE categorias (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    descripcion TEXT,
-    estado ENUM('ACT', 'INA') DEFAULT 'ACT',
-    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Tabla de productos
-CREATE TABLE productos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    categoria_id INT,
-    codigo VARCHAR(50) UNIQUE NOT NULL,
-    nombre VARCHAR(200) NOT NULL,
-    descripcion TEXT,
-    precio DECIMAL(10, 2) NOT NULL,
-    stock INT NOT NULL DEFAULT 0,
-    imagen VARCHAR(255),
-    estado ENUM('ACT', 'INA') DEFAULT 'ACT',
-    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (categoria_id) REFERENCES categorias(id) ON DELETE SET NULL
-);
-
-CREATE TABLE productos_imagenes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    producto_id INT NOT NULL,
-    url_imagen VARCHAR(500) NOT NULL,
-    orden INT DEFAULT 1,
-    estado CHAR(3) DEFAULT 'ACT',
-    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (producto_id) REFERENCES productos(id)
-);
-
-
-UPDATE productos 
-SET imagen = '/uploads/productos/plano' 
-WHERE id = 2;
-
-ALTER TABLE productos 
-MODIFY COLUMN imagen LONGTEXT NULL;
-
-
-
+INSERT INTO `products` (`productName`, `productDescription`, `productPrice`, `productImgUrl`, `productStock`, `productStatus`) VALUES
+('Martillo de Carpintero', 'Martillo profesional con cabeza de acero forjado y mango de fibra de vidrio. Ideal para trabajos generales de carpintería y construcción.', 24.99, '', 50, 'ACT'),
+('Destornillador Plano 6"', 'Destornillador de acero al cromo vanadio con punta plana. Mango ergonómico antideslizante. Tamaño: 6 pulgadas.', 5.49, '', 120, 'ACT'),
+('Llave Inglesa Ajustable 10"', 'Llave ajustable de 10 pulgadas con mandíbula móvil. Capacidad máxima de apertura: 1.5 pulgadas. Material: acero cromado.', 18.75, '', 75, 'ACT'),
+('Taladro Percutor 650W', 'Taladro percutor eléctrico de 650W con función de impacto. Incluye maletín y set de brocas básicas. Velocidad variable.', 89.99, '', 30, 'ACT'),
+('Sierra de Mano para Madera', 'Sierra de mano con hoja de acero templado y dientes endurecidos. Mango de plástico resistente. Longitud de hoja: 20 pulgadas.', 15.25, '', 60, 'ACT'),
+('Alicates de Punta', 'Alicates de punta larga de 6 pulgadas. Corte preciso y agarre firme. Ideal para trabajos de electricidad y electrónica.', 12.99, '', 90, 'ACT'),
+('Cinta Métrica 5m', 'Cinta métrica retráctil de 5 metros/16 pies. Cinta de acero con recubrimiento nylon. Bloqueo automático.', 8.50, '', 150, 'ACT'),
+('Nivel de Burbuja 24"', 'Nivel de aluminio de 24 pulgadas con 3 viales (horizontal, vertical y 45°). Precisión ±0.5mm/m.', 22.40, '', 40, 'ACT'),
+('Guantes de Trabajo Cuero', 'Guantes de cuero de vaqueta para protección general. Talla L. Costuras reforzadas en áreas de alto desgaste.', 14.99, '', 200, 'ACT'),
+('Broca para Concreto 1/2"', 'Broca de widia para concreto y mampostería. Diámetro: 1/2 pulgada. Longitud: 6 pulgadas. Incluye adaptador SDS Plus.', 6.75, '', 180, 'ACT'),
+('Pala Recta de Jardinería', 'Pala de acero con mango de madera de haya. Punta reforzada para mayor durabilidad. Longitud total: 110 cm.', 21.99, '', 35, 'ACT'),
+('Escalera de Aluminio 4 Escalones', 'Escalera plegable de aluminio de 4 escalones. Capacidad máxima: 150 kg. Sistema de bloqueo de seguridad.', 65.00, '', 25, 'ACT'),
+('Pistola de Silicona Caliente', 'Pistola para silicona caliente de 40W. Incluye 10 barras de silicona transparente. Calentamiento rápido.', 19.99, '', 45, 'ACT'),
+('Caja de Herramientas 16"', 'Caja de herramientas de plástico resistente de 16 pulgadas. Compartimentos organizadores. Capacidad: 25 kg.', 32.50, '', 55, 'ACT'),
+('Multímetro Digital', 'Multímetro digital con pantalla LCD. Mide voltaje AC/DC, corriente, resistencia y continuidad. Incluye puntas de prueba.', 29.99, '', 40, 'ACT'),
+('Cutter Profesional', 'Cutter con hoja retráctil de acero. Mango antideslizante. Incluye 5 hojas de repuesto.', 4.99, '', 300, 'ACT'),
+('Mascarilla de Protección N95', 'Mascarilla desechable con filtro N95. Protección contra polvo, partículas y aerosoles. Paquete de 10 unidades.', 12.50, '', 500, 'ACT'),
+('Linterna LED Recargable', 'Linterna LED de 1000 lúmenes. Batería recargable integrada. Resistente al agua IPX4. Incluye cargador USB.', 34.99, '', 65, 'ACT'),
+('Llave de Tubo 1/2"', 'Juego de llaves de tubo de 1/2 pulgada. 10 piezas (desde 8mm hasta 19mm). Estuche organizador de plástico.', 28.75, '', 50, 'ACT'),
+('Pintura Blanca Mate 4L', 'Pintura acrílica mate de alta cubrición. Rendimiento: 12-14 m²/L. Para interior. Color blanco puro.', 42.00, '', 80, 'ACT');
